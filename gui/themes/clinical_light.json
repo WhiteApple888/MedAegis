@@ -1,0 +1,46 @@
+{
+    "theme_name" : "clinical_light",
+    "app_color" : {
+        "dark_one" : "#E0E7FF",
+        "dark_two" : "#C7D2FE", 
+        "dark_three" : "#6366f1",
+        "dark_four" : "#847cf8",
+        "dark_five" : "#0F172A",
+        
+        "bg_one" : "#f5f7ff",
+        "bg_two" : "#F8FAFC",
+        "bg_three" : "#F1F5F9",
+        
+        "icon_color" : "#475569",
+        "icon_hover" : "#2563EB", 
+        "icon_pressed" : "#1D4ED8",
+        "icon_active" : "#2563EB",
+        
+        "context_color" : "#3B82F6", 
+        "context_hover" : "#60A5FA",
+        "context_pressed" : "#2563EB",
+        
+        "text_title" : "#FFFFFF",
+        "text_labels" : "#334155",
+        "text_foreground" : "#475569",
+        "text_description" : "#64748B",
+        "text_active" : "#475569",
+        
+        "white" : "#FFFFFF",
+        "pink" : "#EC4899",
+        "dark_green": "#004225",
+        "red" : "#EF4444",
+        "yellow" : "#F59E0B",
+    
+        "valid_green" : "#064E3B",
+        "green_btn" : "#5AD87B",
+        "tracking_graph_bg" : "#ffffff",
+        "table_bg" : "#ffffff",
+        "text_edit_bg" : "#847cf8",
+        "text_edit_bg_active" : "#ffffff",
+        "index_col_color" : "#475569",
+        
+        "scroll_bar_color" : "#847cf8",
+        "scroll_bar_bg_color" : "#ffffff"
+    }
+}

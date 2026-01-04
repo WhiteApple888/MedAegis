@@ -1,0 +1,14 @@
+# Environments
+.venv/
+venv/
+env/
+
+# Python internals
+__pycache__/
+*.pyc
+
+# IDEs
+.vscode/
+
+# Build scripts (Only include this if you truly want to ignore your script)
+build_exe_raw.py
