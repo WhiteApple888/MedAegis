@@ -57,7 +57,7 @@ class PyTrackingGraphWidget(QWidget):
         # Grid and Axes
         self.plot_widget.showGrid(x=False, y=False, alpha=0.3)
         styles = {'color': self._text_color, 'font-size': '10pt'}
-        self.plot_widget.getAxis('left').setLabel('Total Quantity', **styles)
+        self.plot_widget.getAxis('left').setLabel('Quantity', **styles)
         self.plot_widget.getAxis('bottom').setLabel('Date', **styles)
         self.plot_widget.getAxis('left').setPen(self._text_color)
         self.plot_widget.getAxis('bottom').setPen(self._text_color)
@@ -107,16 +107,34 @@ class PyTrackingGraphWidget(QWidget):
         colors = ['#FF5555', '#55FF55', '#00CEFF', '#FFFF55']
         
         if df is not None and not df.empty:
-            for i, (medication, group) in enumerate(df.groupby("Medication")):
-                color = colors[i % len(colors)]
-                self.plot_widget.plot(
-                    x=group['Timestamp'].values,
-                    y=group['cumulative_sum'].values,
-                    name=medication,
-                    pen=pg.mkPen(color=color, width=2.5),
-                    symbol='o', symbolSize=10, symbolBrush=color
-                )
-            self.plot_widget.autoRange(padding=0.2)
+            # Plot Graph 1: Target Required (The 'Ideal' Ceiling)
+            x_data = df['Date'].astype('int64') // 10**9
+            self.plot_widget.plot(
+                x=x_data,
+                y=df['Target_Required'].values,
+                name="Target Supply",
+                pen=pg.mkPen(color='r', width=2.5, style=Qt.DotLine), 
+                symbol=None, symbolSize=10, symbolBrush='r'
+        )
+            self.plot_widget.plot(
+               x=x_data,
+               y=df['Patient_Stock'].values,
+               name="Actual Stock",
+               pen=pg.mkPen(color=self._accent_color, width=2.5),
+               fillLevel=0,
+               brush=(86, 138, 242, 50) # Light blue fill under the curve
+        )      
+
+            # for i, (medication, group) in enumerate(df.groupby("Medication")):
+            #     color = colors[i % len(colors)]
+            #     self.plot_widget.plot(
+            #         x=group['Timestamp'].values,
+            #         y=group['cumulative_sum'].values,
+            #         name=medication,
+            #         pen=pg.mkPen(color=color, width=2.5),
+            #         symbol='o', symbolSize=10, symbolBrush=color
+            #     )
+            # self.plot_widget.autoRange(padding=0.2)
 
     def update_crosshair(self, event):
         """Handles internal mouse movement and data snapping"""
@@ -133,15 +151,27 @@ class PyTrackingGraphWidget(QWidget):
                 self.label.setVisible(True)
                 
                 self.vLine.setPos(row['Timestamp'])
-                self.hLine.setPos(row['cumulative_sum'])
+                self.hLine.setPos(row['Patient_Stock'])
 
-                content = f"{row['Medication']}\n" \
-                            f"Date: {row['Date'].strftime('%d-%b-%Y')}\n" \
-                            f"Qty:{row['Qty']} {row['Formulation']}\n" \
-                            f"Total Sum: {row['cumulative_sum']}\n"\
-                           f"Institutions: {row['Institution']}"
+                # Logic for Conditional Coloring
+                oversupply_status = str(row['Oversupplied']).strip()
+                if oversupply_status.lower() == "yes":
+                    oversupply_text = f'<span style="color: #FF5555;">Oversupply: {oversupply_status}</span>'
+
+                else:
+                    oversupply_text = f"Oversupply: {oversupply_status}"
+
+                content = f"Date: {row['Date'].strftime('%d-%b-%Y')}<br>" \
+                            f"{oversupply_text}<br>" \
+                            f"Patient Stock:{row['Patient_Stock']}<br>" \
+                            f"Target Level:{row['Target_Required']}<br>" \
+                            f"Qty given this day:{row['Qty']}<br>" \
+                            f"Institutions: {row['Institution']}"
+                            # f"Total Sum: {row['cumulative_sum']}\n"\
+                            #  {row['Formulation']}\n" \
                 
-                self.label.setText(content)
+                self.label.setHtml(content) #set as html 
+                # self.label.setText(content)
                 self.label.setAnchor((1.1, 1.1))
                 self.label.setPos(mouse_point.x(), mouse_point.y())
                 return

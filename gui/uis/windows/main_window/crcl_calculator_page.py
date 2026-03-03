@@ -61,6 +61,10 @@ class CrClCalculatorPage:
         self.val_male_1 = self.create_label(text="--- mL/min", color="#2CA02C")
         self.val_female_1 = self.create_label(text="--- mL/min", color="#2CA02C")
 
+        # 5) CREATE STATIC REFERENCE LISTS
+        self.renal_drugs_list = self.create_image("crcl_cal_ref/renal_drugs_list.png", width=500, height=500)
+        self.ddi_drugs_list = self.create_image("crcl_cal_ref/ddi_drugs_list.png", width=700, height=700)
+
         
         # REPLACE DESIGNER PLACEHOLDERS
         # Targeting the object names you set in Qt Designer
@@ -78,6 +82,8 @@ class CrClCalculatorPage:
         self.replace_widget(self.ui.load_pages.result_female_label_1, self.result_female_label_1)
         self.replace_widget(self.ui.load_pages.val_male_1, self.val_male_1)
         self.replace_widget(self.ui.load_pages.val_female_1, self.val_female_1)
+        self.replace_widget(self.ui.load_pages.renal_drugs_list, self.renal_drugs_list)
+        self.replace_widget(self.ui.load_pages.ddi_drugs_list, self.ddi_drugs_list)
         
 
     
@@ -117,6 +123,21 @@ class CrClCalculatorPage:
         line_edit.setMinimumHeight(45)
         # Optional: Set default to current date/time
         return line_edit
+    
+    def create_image(self, image_path, width=200, height=150):
+        """Factory function to create a label containing a static image"""
+        label = QLabel()
+        pixmap = QPixmap(image_path)
+    
+        # Scale the image to fit while keeping aspect ratio
+        label.setPixmap(pixmap.scaled(
+            width, height, 
+            Qt.KeepAspectRatio, 
+            Qt.SmoothTransformation
+        ))
+        label.setAlignment(Qt.AlignCenter)
+        label.setMinimumSize(width, height)
+        return label
     
     def replace_widget(self, old_widget, new_widget):
         """ Replaces a Designer widget with a custom one while keeping layout index """

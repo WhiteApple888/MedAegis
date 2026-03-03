@@ -51,6 +51,8 @@ from . functions_main_window import *
 # ///////////////////////////////////////////////////////////////
 from . supply_tracker_page import SupplyTrackerPage
 from . crcl_calculator_page import CrClCalculatorPage
+from .nehr_list_parser_page import NEHRListParserPage
+from .pick_pop_finder_page import PickPopFinderPage
 
 # PY WINDOW
 # ///////////////////////////////////////////////////////////////
@@ -87,6 +89,22 @@ class SetupMainWindow:
             "btn_id" : "btn_supply_tracker",
             "btn_text" : "Supply Tracker",
             "btn_tooltip" : "Supply Tracker",
+            "show_top" : True,
+            "is_active" : False        
+        },
+        {
+            "btn_icon" : "icon_signal.svg",
+            "btn_id" : "btn_nehr_list_parser_page",
+            "btn_text" : "NEHR Medication List Parser",
+            "btn_tooltip" : "NEHR Medication List Parser",
+            "show_top" : True,
+            "is_active" : False        
+        },
+        {
+            "btn_icon" : "icon_locker.svg",
+            "btn_id" : "btn_pick_pop",
+            "btn_text" : "Pick and POPStation Finder",
+            "btn_tooltip" : "Pick and POPStation Finder",
             "show_top" : True,
             "is_active" : False        
         },
@@ -293,6 +311,16 @@ class SetupMainWindow:
         
         # PAGE 3 - SUPPLY TRACKER PAGE
         self.supply_page = SupplyTrackerPage(
+                            self.ui, 
+                            themes = self.themes
+        )
+        # PAGE 4 - NEHR_MEDICATION_LIST_PARSER
+        self.nehr_list_parser_page = NEHRListParserPage(
+                            self.ui, 
+                            themes = self.themes
+        )
+        # PAGE 5 - NEHR_MEDICATION_LIST_PARSER
+        self.supply_page = PickPopFinderPage(
                             self.ui, 
                             themes = self.themes
         )

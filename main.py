@@ -172,8 +172,24 @@ class MainWindow(QMainWindow):
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
 
-            # Load Page 1
+            # Load Page 3
             MainFunctions.set_page(self, self.ui.load_pages.page_3)
+        
+        # NEHR_List_Parser
+        if btn.objectName() == "btn_nehr_list_parser_page":
+            # Select Menu
+            self.ui.left_menu.select_only_one(btn.objectName())
+
+            # Load Page 4
+            MainFunctions.set_page(self, self.ui.load_pages.page_4)
+        
+        # Pick And POPStation Finder
+        if btn.objectName() == "btn_pick_pop":
+            # Select Menu
+            self.ui.left_menu.select_only_one(btn.objectName())
+
+            # Load Page 4
+            MainFunctions.set_page(self, self.ui.load_pages.page_5)
         
         # BOTTOM INFORMATION
         if btn.objectName() == "btn_info":
