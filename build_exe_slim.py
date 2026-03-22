@@ -38,6 +38,7 @@ cmd = [
     # "--onefile",
     "--onefile-tempdir-spec={PROGRAM_DIR}/_cache",
     "--mingw64",
+    "--output-filename=medaegis",
     
     # PLUGINS & QT CONFIG
     "--plugin-enable=pyside6",

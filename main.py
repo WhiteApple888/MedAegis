@@ -190,6 +190,14 @@ class MainWindow(QMainWindow):
 
             # Load Page 4
             MainFunctions.set_page(self, self.ui.load_pages.page_5)
+
+        # Medifund Info
+        if btn.objectName() == "btn_mfd_info":
+            # Select Menu
+            self.ui.left_menu.select_only_one(btn.objectName())
+
+            # Load Page 4
+            MainFunctions.set_page(self, self.ui.load_pages.page_6)
         
         # BOTTOM INFORMATION
         if btn.objectName() == "btn_info":

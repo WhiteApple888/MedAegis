@@ -251,9 +251,6 @@ class SupplyTrackerPage:
         # Duration Calculation
         self.start_date_1.dateTimeChanged.connect(self.handle_duration_calc)
         self.end_date_1.dateTimeChanged.connect(self.handle_duration_calc)
-        # Trigger required qty calc when these change
-        # self.duration_2.textChanged.connect(self.handle_required_qty_calc)
-        # self.qty_1.textChanged.connect(self.handle_required_qty_calc)
         
         # End Date Calculation
         self.duration_2.textChanged.connect(self.handle_end_date_calc)
@@ -294,23 +291,7 @@ class SupplyTrackerPage:
             self.set_label_status(self.end_date_2, result, is_valid=True)
         else:
             self.set_label_status(self.end_date_2, "Invalid", is_valid=False)
-    
-    # def handle_required_qty_calc(self):
-    # # Bridge between UI and logic/supply_tracker.py
-    #     # 1. Get raw strings from UI
-    #     duration_text = self.duration_2.text().strip()
-    #     daily_text = self.qty_1.text().strip()
-                
-    #     # 2. Call the backend logic
-    #     # Make sure calculate_required_qty is imported at the top of this file
-    #     result = calculate_required_qty(daily_text, duration_text)
-    #     # 3. Update the UI "Answer" label
-    #     if result is not None and result > 0 :
-    #         self.set_label_status(self.qty_3, f"{result} tabs/caps", is_valid=True)
-            
-    #     else:
-    #         self.set_label_status(self.qty_3, "Invalid", is_valid=False)
-            
+
     def set_label_status(self, label, text, is_valid=True):
         label.setText(text)
         if is_valid == True:
@@ -347,10 +328,9 @@ class SupplyTrackerPage:
                 med_name = totals.index[0] # Tracking the first med found
                 print(med_name)
                 engine = MedicationEngine(
-                    nehr_df=self.current_df, 
-                    medication_name=med_name, 
+                    nehr_df=self.current_df,
                     daily_dosage=daily_dosage, 
-                    start_date_str=start_date_str, 
+                    start_date_str=start_date_str,
                     duration_days=duration
                 )
                 # Generate the sawtooth consumption data
@@ -369,7 +349,9 @@ class SupplyTrackerPage:
                 self.qty_2.setText(f"{needed_today}")
 
                 # Update the Graph
-                self.graph_widget.display_new_graph(tracker_df)                
+                self.graph_widget.display_new_graph(tracker_df)
+                self.graph_widget.add_today_crossmark(tracker_df)
+
         except Exception as e:
             print(f"Error initializing Medication Engine: {e}")
         
@@ -389,7 +371,7 @@ class SupplyTrackerPage:
             item_qty.setTextAlignment(Qt.AlignCenter)
             self.total_table.setItem(row_idx, 0, item_med)
             self.total_table.setItem(row_idx, 1, item_qty)
-            
+    
     def populate_table(self, table_widget, df):
         table_widget.setRowCount(len(df))
         for row_idx, row_values in enumerate(df.values):
@@ -401,7 +383,24 @@ class SupplyTrackerPage:
                 table_widget.setItem(row_idx, col_idx, item)
 
     def clear_all(self):
+        # 1. Clear Input/Output Text Fields
         self.input_text.clear()
+        self.duration_2.clear()
+        self.qty_1.clear()
+
+        # 3. Reset DateTime Edits to Today
+        current_date = QDateTime.currentDateTime()
+        self.start_date_1.setDateTime(current_date)
+        self.end_date_1.setDateTime(current_date)
+        self.start_date_2.setDateTime(current_date)
+
+        # 2. Reset Calculation Labels to Default
+        self.set_label_status(self.end_date_2, "Answer", is_valid=True) 
+        self.set_label_status(self.qty_2, "Answer", is_valid=True)
+        self.set_label_status(self.oversupplied, "Answer", is_valid=True)
+        self.set_label_status(self.duration_1, "Answer", is_valid=True)
+
+        # 4. Clear Tables and Graphs
         self.total_table.setRowCount(0)
         self.graph_widget.display_new_graph(None)
         self.current_df = None

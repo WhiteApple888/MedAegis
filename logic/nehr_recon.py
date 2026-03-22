@@ -17,7 +17,7 @@ def parse_medication_data(text):
     date_pattern = r'(^\d{1,2}-[a-zA-Z]{3}-\d{4}) - (Dispensed|Ordered)'
 
     # The pattern you provided to validate a "complete" medication line
-    valid_line_pattern = r'\t[\d\sa-z]*(?:-\s?){0,1}/[\d\sa-z]*(?:-\s?){0,1}\t'
+    valid_line_pattern = r'\t[\d\sa-z]*(?:\(s\)|/s)?\s*(?:-\s?){0,1}/[\d\sa-z]*(?:\(s\)|/s)?\s*(?:-\s?){0,1}\t'
 
     for line in lines:
         if not line: continue
@@ -117,7 +117,7 @@ def calculate_end_date(row):
     text_to_search = f"{row['Date &/or Qty']}".lower().strip()
     
     # Regex pattern: look for digits followed by optional space and a unit
-    match = re.search(r'(\d+)\s*(day|week|month|year)s?', text_to_search)
+    match = re.search(r'(\d+)\s*(day|week|month|year)(?:\(s\)|/|s)?', text_to_search)
     
     if not match:
         return pd.Timestamp.now()

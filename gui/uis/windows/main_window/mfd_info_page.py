@@ -22,14 +22,11 @@ from gui.widgets import *
 # ///////////////////////////////////////////////////////////////
 from . functions_main_window import *
 
-# BACKEND LOGIC 
-# ///////////////////////////////////////////////////////////////
-from logic.crcl import *
 
 # LOAD UI MAIN
 # ///////////////////////////////////////////////////////////////
 
-class CrClCalculatorPage:
+class MFDInfoPage:
     def __init__(self, parent_ui, themes):
         # SETTINGS
         self.themes = themes
@@ -37,70 +34,28 @@ class CrClCalculatorPage:
         
         # Initialize UI
         self.setup_ui()
-        self.connect_signals()
 
     def setup_ui(self):
         
         # 1) CREATININE CLEARANCE CALCULATOR
-        self.crcl_calculator_title = PyTitleWidget(title="Cockcroft-Gault CrCl Calculator")
+        self.mfd_title = PyTitleWidget(title="MEDIFUND INFORMATION")
 
-        self.age_label_1 = self.create_label("Age (Years)", minh=45, minw=225)
-        self.weight_label_1 = self.create_label("Weight (kg)", minh=45, minw=225)
-        self.scr_label_1 = self.create_label("Serum Creatinine", minh=45, minw=150)
-        
-        self.age_1 = self.create_line_edit(place_holder_text="input")
-        self.weight_1 = self.create_line_edit(place_holder_text="input")
-        self.scr_value_1 = self.create_line_edit(place_holder_text="input")
-
-
-        # 4) UNIT TOGGLE (ComboBox)
-        self.unit_toggle_1 = PyComboBox(items=["µmol/L", "mg/dL", "mg/mL"])
-        self.result_male_label_1 = self.create_label("Male Result", color=self.themes["app_color"]["text_foreground"])
-        self.result_female_label_1 = self.create_label("Female Result", color=self.themes["app_color"]["text_foreground"])
-        
-        self.val_male_1 = self.create_label(text="--- mL/min", color="#2CA02C")
-        self.val_female_1 = self.create_label(text="--- mL/min", color="#2CA02C")
-
-        # 5) CREATE STATIC REFERENCE LISTS
-        self.renal_drugs_list = self.create_image("crcl_cal_ref/renal_drugs_list.png", width=500, height=500)
-        self.ddi_drugs_list = self.create_image("crcl_cal_ref/ddi_drugs_list.png", width=700, height=700)
+        # 2) CREATE STATIC REFERENCE LISTS
+        self.mfd_coverage = self.create_image("mfd/mfd_coverage.png")
+        self.mfd_exclusions = self.create_image("mfd/mfd_exclusions.png")
+        self.mfd_auto_switch = self.create_image("mfd/mfd_auto_switch.png", width=700)
+        self.mfd_retail = self.create_image("mfd/mfd_retail.png", width=420)
 
         
         # REPLACE DESIGNER PLACEHOLDERS
         # Targeting the object names you set in Qt Designer
 
         # 1) CALCULATE END DATE
-        self.replace_widget(self.ui.load_pages.crcl_calculator_title, self.crcl_calculator_title)
-        self.replace_widget(self.ui.load_pages.age_label_1, self.age_label_1)
-        self.replace_widget(self.ui.load_pages.weight_label_1, self.weight_label_1)
-        self.replace_widget(self.ui.load_pages.scr_label_1, self.scr_label_1)
-        self.replace_widget(self.ui.load_pages.age_1, self.age_1)
-        self.replace_widget(self.ui.load_pages.weight_1, self.weight_1)
-        self.replace_widget(self.ui.load_pages.unit_toggle_1, self.unit_toggle_1)
-        self.replace_widget(self.ui.load_pages.scr_value_1, self.scr_value_1)
-        self.replace_widget(self.ui.load_pages.result_male_label_1, self.result_male_label_1)
-        self.replace_widget(self.ui.load_pages.result_female_label_1, self.result_female_label_1)
-        self.replace_widget(self.ui.load_pages.val_male_1, self.val_male_1)
-        self.replace_widget(self.ui.load_pages.val_female_1, self.val_female_1)
-        self.replace_widget(self.ui.load_pages.renal_drugs_list, self.renal_drugs_list)
-        self.replace_widget(self.ui.load_pages.ddi_drugs_list, self.ddi_drugs_list)
-        
-
-    
-    def create_label(self, text, color=None, minh=45, minw=125):
-        """Factory function to create styled PyLabel widgets"""
-        # If no color is provided, use the theme default
-        if color is None:
-            color = self.themes["app_color"]["text_labels"]
-        
-        label = PyLabel(
-            text = text,
-            radius = 8,
-            color = color
-        )
-        label.setMinimumHeight(minh)
-        label.setMinimumWidth(minw)
-        return label
+        self.replace_widget(self.ui.load_pages.mfd_title, self.mfd_title)
+        self.replace_widget(self.ui.load_pages.mfd_coverage, self.mfd_coverage)
+        self.replace_widget(self.ui.load_pages.mfd_auto_switch, self.mfd_auto_switch)
+        self.replace_widget(self.ui.load_pages.mfd_exclusions, self.mfd_exclusions)
+        self.replace_widget(self.ui.load_pages.mfd_retail, self.mfd_retail)
     
     def create_header(self, title):
         """
@@ -113,16 +68,6 @@ class CrClCalculatorPage:
         header = PyTitleWidget(title=title)
         return header
     
-    def create_line_edit(self, place_holder_text):
-        """Factory function to create styled PyLineEdit widgets"""
-        line_edit = PyLineEdit(
-            radius = 8,
-            border_size = 2,
-            place_holder_text = place_holder_text
-        )
-        line_edit.setMinimumHeight(45)
-        # Optional: Set default to current date/time
-        return line_edit
     
     def create_image(self, image_path, width=200, height=150):
         """Factory function to create a label containing a static image"""
@@ -171,61 +116,6 @@ class CrClCalculatorPage:
                     layout.removeWidget(old_widget)
                     old_widget.deleteLater()
                     layout.insertWidget(index, new_widget, stretch) # Map size policy
-
-    
-    def connect_signals(self):
-        # Trigger crcl calculation whenever any input changes
-        self.age_1.textChanged.connect(self.run_calculation)
-        self.weight_1.textChanged.connect(self.run_calculation)
-        self.scr_value_1.textChanged.connect(self.run_calculation)
-        self.unit_toggle_1.currentIndexChanged.connect(self.run_calculation)
-
-    # =========================
-    # CALCULATOR EVENT HANDLING LOGIC
-    # =========================
-    def run_calculation(self):
-        print("calculation triggered")
-        # 1. Gather data from widgets
-        age = self.age_1.text().strip()
-        weight = self.weight_1.text().strip()
-        scr = self.scr_value_1.text().strip()
-        unit = self.unit_toggle_1.currentText()
-
-        # Check if any field is empty before calling logic
-        if not age or not weight or not scr:
-            self.val_male_1.setText("---")
-            self.val_female_1.setText("---")
-            return
-        
-        # 2. Call external backend function
-        m_result, f_result = cal_clcr_results(age, weight, scr, unit)
-
-        # 3. Update UI based on result
-        if m_result is not None:
-            self.val_male_1.setText(f"{m_result} mL/min")
-            self.val_female_1.setText(f"{f_result} mL/min")
-            # Using your existing status helper for color feedback
-            self.set_label_status(self.val_male_1, f"{m_result} mL/min", is_valid=True)
-            self.set_label_status(self.val_female_1, f"{f_result} mL/min", is_valid=True)
-        else:
-            self.val_male_1.setText("---")
-            self.val_female_1.setText("---")
-
-    def set_label_status(self, label, text, is_valid=True):
-        label.setText(text)
-
-        if is_valid == True:
-            # Change to green (or your theme's success color)
-            color = self.themes["app_color"]["valid_green"] 
-        else:
-            # Change to red
-            color = self.themes["app_color"]["red"]
-        # Apply the color via inline stylesheet
-        label._color = color
-        label.apply_styles()
-
-    def clear_all(self):
-        self.input_text.clear()
 
 class ZoomableImage(QScrollArea):
     def __init__(self, image_path):

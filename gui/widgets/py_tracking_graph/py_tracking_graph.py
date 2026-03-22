@@ -4,6 +4,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtSvgWidgets import *
 import pyqtgraph as pg
 import pandas as pd
+import numpy as np
 
 class PyTrackingGraphWidget(QWidget):
     def __init__(
@@ -175,6 +176,50 @@ class PyTrackingGraphWidget(QWidget):
                 self.label.setAnchor((1.1, 1.1))
                 self.label.setPos(mouse_point.x(), mouse_point.y())
                 return
+            
+    def add_today_crossmark(self, df):
+        if df is None or df.empty or 'Date' not in df.columns:
+            return
+        
+        try:
+            # 1. Get today's date (normalized to midnight)
+            today = pd.Timestamp.now().normalize()
+
+            # 2. Find the integer index (row number) where Date == Today
+            # We use .values to avoid index-alignment issues
+            today_df = df[df['Date'] == today]
+
+            if not today_df.empty:
+                idx = today_df.index[0]
+                y_val = today_df.at[idx, 'Patient_Stock']
+                x_val = df.at[idx, 'Timestamp']
+
+                # Create the Cross Marker
+                self.plot_widget.plot(
+                    [x_val], [y_val],
+                    pen=None,
+                    symbol='x', 
+                    symbolSize=20,
+                    symbolPen=pg.mkPen(color='#FF5555', width=3)
+                )
+                
+                target_required = today_df.at[idx, 'Target_Required']
+                balance_to_supply = int(np.ceil(max(0, target_required - y_val)))
+                # Add the Text Label
+                label = pg.TextItem(
+                    text=f"Today:\n Patient stock: {int(np.ceil(y_val))}\n Balance to supply: {balance_to_supply}",
+                    color="#FF5555", 
+                    anchor=(0.5, 1.4)
+                )
+                label.setPos(x_val, y_val)
+                self.plot_widget.addItem(label)
+            
+            else:
+                # If today is not in the range, we do nothing (no marking)
+                print("Today's date is outside the tracked range. No marker added.")
+            
+        except Exception as e:
+            print(f"Marker Error: {e}")
 
         self.vLine.setVisible(False)
         self.hLine.setVisible(False)

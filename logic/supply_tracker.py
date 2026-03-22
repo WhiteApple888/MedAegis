@@ -28,13 +28,13 @@ def process_nehr_data(raw_data):
             date = date_match.group(1) if date_match else "N/A"
 
             # 2. Extract Medication name and formulation using regex
-            pattern2 = pattern1 + r'\s+(.*?)(?:tablets?|tabs?|capsules?|caps?)'
+            pattern2 = pattern1 + r'\s+(.*?)(?:tablet|tab|capsule|cap)(?:/?s|\(s\))?'
             med_match = re.search(pattern2, record, re.DOTALL | re.IGNORECASE).group(2).strip()
             med = med_match if med_match else "Unknown"
 
             # 3. Find the numerical quantity using regex even if its order with duration is reversed. This ignores '180 days' and picks '360 TAB' even if the order is reversed
             # used re.findall and index from -1 instead of re.search as dosing instruction may use 1 TAB every morning.
-            pattern3 = r'(\d+)\s*(tablet|tab|capsule|caps)s?\t(.+)$'
+            pattern3 = r'(\d+)\s*(tablet|tab|capsule|cap)(?:/?s|\(s\))?\t(.+)$'
             if qty_form_matches := re.findall(pattern3, record, re.IGNORECASE):
                 qty = int(qty_form_matches[-1][0])
                 formulation = qty_form_matches[-1][1]
@@ -105,20 +105,22 @@ class MedicationEngine:
     """
     This class generates the data for Graph 1 and Graph 2.
     """
-    def __init__(self, nehr_df, medication_name, daily_dosage, start_date_str, duration_days):
+    def __init__(self, nehr_df, daily_dosage, start_date_str, duration_days):
         # Filter NEHR data for the specific medication
-        self.med_df = nehr_df[nehr_df['Medication'] == medication_name.upper()].copy()
+        self.med_df = nehr_df.copy()
+        self.med_df['Medication'] == "Medication of Interest"
 
         # Setup Parameters
         self.dosage = float(daily_dosage)
         self.start_dt = pd.to_datetime(start_date_str, dayfirst=True)
+        self.first_collection_dt = self.med_df['Date'].min()
         self.duration = int(duration_days)
         self.end_dt = self.start_dt + pd.Timedelta(days=self.duration)
         self.report_df = None # To store the results after generation
 
     def generate_report(self):
         # 1. Create a daily date range
-        all_dates = pd.date_range(start=self.start_dt, end=self.end_dt, freq='D')
+        all_dates = pd.date_range(start=self.first_collection_dt, end=self.end_dt, freq='D')
         df = pd.DataFrame({'Date': all_dates})
         df['Days_Elapsed'] = np.arange(len(df))
 
@@ -144,11 +146,13 @@ class MedicationEngine:
         # 5. Calculate "Running Balance" (The 60 - 30 + 90 Logic)
         # We use a loop or a custom accumulator because daily consumption
         # depends on the balance not dropping below zero
-        current_balance = 0
+        current_balance = self.dosage
         stock_history = []
 
         for _, row in df.iterrows():
             # Add what was collected today
+            if current_balance == 0:
+                current_balance = self.dosage
             current_balance += row['Qty']
             # Subtract daily dose (cannot go below 0)
             # Note: We subtract AFTER adding today's collection
@@ -158,14 +162,42 @@ class MedicationEngine:
         df['Patient_Stock'] = stock_history
         df['Timestamp'] = df['Date'].apply(lambda x: x.timestamp())
 
-        # --- GRAPH 1: Target Ceiling ---
-        total_needed_at_start = self.duration * self.dosage
-        df['Target_Required'] = total_needed_at_start - (df['Days_Elapsed'] * self.dosage)
-        df['Target_Required'] = df['Target_Required'].clip(lower=0)
-        df['Oversupplied'] = "No"  # Set default
-        df.loc[df['Target_Required'] - df['Patient_Stock'] < 0, 'Oversupplied'] = "Yes"
+        # # --- GRAPH 1: Target Ceiling ---
+        # total_needed_at_start = self.duration * self.dosage
+        # df['Target_Required'] = total_needed_at_start - (df['Days_Elapsed'] * self.dosage)
+        # df['Target_Required'] = df['Target_Required'].clip(lower=0)
+        # df['Oversupplied'] = "No"  # Set default
+        # df.loc[df['Target_Required'] - df['Patient_Stock'] < 0, 'Oversupplied'] = "Yes"
 
-        self.report_df = df # Store it so we don't have to recalculate
+        # self.report_df = df # Store it so we don't have to recalculate
+        # return df
+
+        # 1. Initialize columns with default values
+        df['Target_Required'] = self.duration * self.dosage
+        df['Oversupplied'] = "No"
+
+        # 2. Create a mask for rows that are on or after the start date
+        start_mask = df['Date'] >= self.start_dt
+        
+        # 3. Calculate 'Days from Start' for the ceiling formula
+        # This ensures that on start_dt, days_from_start is 0
+        df.loc[start_mask, 'days_from_start'] = (df.loc[start_mask, 'Date'] - self.start_dt).dt.days
+        
+        # 4. Apply the calculation only to the masked rows
+        total_needed_at_start = self.duration * self.dosage
+        
+        df.loc[start_mask, 'Target_Required'] = (
+            total_needed_at_start - (df.loc[start_mask, 'days_from_start'] * self.dosage)
+        ).clip(lower=0)
+
+        # 5. Check for oversupply only from the start date onwards
+        # If Patient_Stock > Target_Required, mark as Yes
+        oversupply_mask = start_mask & (df['Patient_Stock'] > df['Target_Required'])
+        df.loc[oversupply_mask, 'Oversupplied'] = "Yes"
+
+        # Clean up temporary column and store
+        df = df.drop(columns=['days_from_start'])
+        self.report_df = df 
         return df
     
     def calculate_supply_gap(self):
@@ -184,8 +216,5 @@ class MedicationEngine:
             # Gap = (What they should have) - (What they actually have)
             gap = max(0, target_required - current_stock)
             return int(np.ceil(gap))
-        
-        if today < self.start_dt:
-            return int(self.duration * self.dosage)
         
         return 0

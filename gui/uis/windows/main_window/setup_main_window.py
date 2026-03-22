@@ -53,6 +53,7 @@ from . supply_tracker_page import SupplyTrackerPage
 from . crcl_calculator_page import CrClCalculatorPage
 from .nehr_list_parser_page import NEHRListParserPage
 from .pick_pop_finder_page import PickPopFinderPage
+from .mfd_info_page import MFDInfoPage
 
 # PY WINDOW
 # ///////////////////////////////////////////////////////////////
@@ -105,6 +106,14 @@ class SetupMainWindow:
             "btn_id" : "btn_pick_pop",
             "btn_text" : "Pick and POPStation Finder",
             "btn_tooltip" : "Pick and POPStation Finder",
+            "show_top" : True,
+            "is_active" : False        
+        },
+        {
+            "btn_icon" : "icon_more_options.svg",
+            "btn_id" : "btn_mfd_info",
+            "btn_text" : "Medifund Info",
+            "btn_tooltip" : "Medifund Info",
             "show_top" : True,
             "is_active" : False        
         },
@@ -319,8 +328,14 @@ class SetupMainWindow:
                             self.ui, 
                             themes = self.themes
         )
-        # PAGE 5 - NEHR_MEDICATION_LIST_PARSER
-        self.supply_page = PickPopFinderPage(
+        # PAGE 5 - PickPopFinder
+        self.pick_pop_finder_page = PickPopFinderPage(
+                            self.ui, 
+                            themes = self.themes
+        )
+
+        # PAGE 6 - Medifund_info
+        self.mfd_info_page = MFDInfoPage(
                             self.ui, 
                             themes = self.themes
         )

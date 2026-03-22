@@ -200,8 +200,8 @@ class NEHRListParserPage:
         self.input_text.clear()
         self.chronic_table.setRowCount(0)
         self.prn_table.setRowCount(0)
-        self.tabs_container.setTabText(0, "Chronic Meds")
-        self.tabs_container.setTabText(1, "PRN / As Needed")
+        self.chronic_med_list_title.label_title.setText("Chronic Meds")
+        self.prn_med_list_title.label_title.setText("PRN Medications")
 
 
     # --- HELPERS (Reusing your style pattern) ---
