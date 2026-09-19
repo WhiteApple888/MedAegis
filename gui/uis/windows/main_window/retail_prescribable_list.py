@@ -24,58 +24,62 @@ from .functions_main_window import *
 
 # BACKEND LOGIC 
 # ///////////////////////////////////////////////////////////////
-from logic.pickpopfinder import *
+from logic.retailprescribablelistfinder import *
 
 # LOAD UI MAIN
 # ///////////////////////////////////////////////////////////////
 
-class PickPopFinderPage:
+class RetailListPage:
     def __init__(self, parent_ui, themes):
         self.themes = themes
         self.ui = parent_ui 
         
         # Paths to your CSV files
-        self.sg_postal_path = 'pickpopfindercsv/SG_postal.csv'
-        self.station_path = 'pickpopfindercsv/stations.csv'
+        self.retail_prescribable_list = 'retailcsv/retail_prescribable_list.csv'
 
         self.setup_ui()
         self.connect_signals()
 
+        # Run search once at startup to load all rows
+        self.run_item_search() 
+
     def setup_ui(self):
         # 1. CREATE CUSTOM WIDGETS
-        self.finder_title = self.create_header(title="Nearest Station Finder")
-        self.postal_label = self.create_label("Enter Postal Code", minh=45, minw=150)
-        self.postal_input = self.create_line_edit("e.g. 681820", minh=45, minw=200)
+        self.retail_finder_title = self.create_header(title="Retail Prescribable List")
+        self.item_name_label = self.create_label("Item Name", minh=45, minw=150)
+        self.item_name_input = self.create_line_edit("e.g. hirudoid cream", minh=45, minw=200)
         
         # We use a Table to display the Top results clearly
-        self.results_table = self.create_styled_table(["Station Name", "Description", "Opening Hours", "Postal Code", "Estimated Distance (m)"]) #EMPTY
+        self.results_table = self.create_styled_table(
+            ["ITEM CODE", "ITEM DESCRIPTION"],
+            {
+                "ITEM CODE":10,
+                "ITEM DESCRIPTION":60
+            }
+
+        ) #EMPTY
 
         # 2. REPLACE DESIGNER PLACEHOLDERS
         # Ensure these object names exist in your .ui file/SetupMainWindow
-        self.replace_widget(self.ui.load_pages.finder_title_pane, self.finder_title)
-        self.replace_widget(self.ui.load_pages.postal_label_pane, self.postal_label)
-        self.replace_widget(self.ui.load_pages.postal_input_pane, self.postal_input)
-        self.replace_widget(self.ui.load_pages.results_table_pane, self.results_table)
+        self.replace_widget(self.ui.load_pages.retail_finder_title, self.retail_finder_title)
+        self.replace_widget(self.ui.load_pages.item_name_label, self.item_name_label)
+        self.replace_widget(self.ui.load_pages.item_name_input, self.item_name_input)
+        self.replace_widget(self.ui.load_pages.retail_results_table_pane, self.results_table)
 
     def connect_signals(self):
         # Trigger search when text changes or when user presses Enter
-        self.postal_input.textChanged.connect(self.run_station_search)
+        self.item_name_input.textChanged.connect(self.run_item_search)
         # Shortcut to copy selection for the Totals table
         self.shortcut_total = QShortcut(QKeySequence("Ctrl+C"), self.results_table)
         self.shortcut_total.setContext(Qt.WidgetWithChildrenShortcut)
         self.shortcut_total.activated.connect(lambda: MainFunctions.copy_table_selection(self.results_table))
 
-    def run_station_search(self):
-        user_postal = self.postal_input.text().strip()
-
-        # Validation: Singapore postal codes are 6 digits
-        if len(user_postal) != 6 or not user_postal.isdigit():
-            self.results_table.setRowCount(0)
-            return
+    def run_item_search(self):
+        target_item = self.item_name_input.text().strip()
 
         # Call Backend
         try:
-            result = get_nearest(user_postal, self.sg_postal_path, self.station_path)
+            result = get_item(target_item, self.retail_prescribable_list)
 
             if isinstance(result, str): # Error message returned
                 print(result) 
@@ -88,10 +92,10 @@ class PickPopFinderPage:
     def display_results(self, df):
         """Populates the QTableWidget with DataFrame content"""
         # Select columns to show
-        display_cols = ['locker_station_name', 'locker_station_description', 'opening_hours', 'postal_code', 'estimated_dist_km']
+        display_cols = ['ITEMCODE', 'ITEM DESCRIPTION']
         
         self.results_table.setColumnCount(len(display_cols))
-        self.results_table.setHorizontalHeaderLabels(["Station Name", "Description", "Opening Hours", "Postal Code", "Estimated Distance (m)"])
+        self.results_table.setHorizontalHeaderLabels(["ITEM CODE", "ITEM DESCRIPTION"])
         self.results_table.setRowCount(len(df))
 
         for row_idx, row in df.iterrows():
@@ -102,7 +106,7 @@ class PickPopFinderPage:
                 item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled) # Read-only
                 self.results_table.setItem(actual_row, col_idx, item)
         
-        self.results_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        # self.results_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     # --- HELPERS (Reusing your style pattern) ---
     def create_header(self, title):
@@ -186,7 +190,6 @@ class PickPopFinderPage:
         QTimer.singleShot(0, apply_column_ratios)
 
         return table
-
 
     def replace_widget(self, old_widget, new_widget):
         """ Replaces a Designer widget with a custom one while keeping layout index """

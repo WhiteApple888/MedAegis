@@ -86,7 +86,7 @@ class Ui_MainPages(object):
         self.scroll_area_2.setWidgetResizable(True)
         self.contents = QWidget()
         self.contents.setObjectName(u"contents")
-        self.contents.setGeometry(QRect(0, 0, 711, 650))
+        self.contents.setGeometry(QRect(0, 0, 116, 106))
         self.contents.setStyleSheet(u"")
         self.verticalLayout = QVBoxLayout(self.contents)
         self.verticalLayout.setSpacing(15)
@@ -317,7 +317,7 @@ class Ui_MainPages(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 709, 648))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 274, 242))
         self.scrollAreaWidgetContents_3.setStyleSheet(u"")
         self.horizontalLayout_10 = QHBoxLayout(self.scrollAreaWidgetContents_3)
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
@@ -644,7 +644,7 @@ class Ui_MainPages(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 707, 646))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 98, 76))
         self.verticalLayout_16 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
         self.whole = QWidget(self.scrollAreaWidgetContents)
@@ -972,13 +972,125 @@ class Ui_MainPages(object):
         self.verticalLayout_31.addWidget(self.scrollArea_6)
 
         self.pages.addWidget(self.page_6)
+        self.page_7 = QWidget()
+        self.page_7.setObjectName(u"page_7")
+        self.verticalLayout_34 = QVBoxLayout(self.page_7)
+        self.verticalLayout_34.setObjectName(u"verticalLayout_34")
+        self.scrollArea_7 = QScrollArea(self.page_7)
+        self.scrollArea_7.setObjectName(u"scrollArea_7")
+        self.scrollArea_7.setStyleSheet(u"")
+        self.scrollArea_7.setWidgetResizable(True)
+        self.scrollAreaWidgetContents_6 = QWidget()
+        self.scrollAreaWidgetContents_6.setObjectName(u"scrollAreaWidgetContents_6")
+        self.scrollAreaWidgetContents_6.setGeometry(QRect(0, 0, 707, 646))
+        self.horizontalLayout_7 = QHBoxLayout(self.scrollAreaWidgetContents_6)
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.left_widget_5 = QWidget(self.scrollAreaWidgetContents_6)
+        self.left_widget_5.setObjectName(u"left_widget_5")
+        sizePolicy8.setHeightForWidth(self.left_widget_5.sizePolicy().hasHeightForWidth())
+        self.left_widget_5.setSizePolicy(sizePolicy8)
+        self.verticalLayout_29 = QVBoxLayout(self.left_widget_5)
+        self.verticalLayout_29.setObjectName(u"verticalLayout_29")
+        self.verticalLayout_29.setContentsMargins(0, 0, 0, 0)
+        self.retail_finder_title = QWidget(self.left_widget_5)
+        self.retail_finder_title.setObjectName(u"retail_finder_title")
+        sizePolicy9.setHeightForWidth(self.retail_finder_title.sizePolicy().hasHeightForWidth())
+        self.retail_finder_title.setSizePolicy(sizePolicy9)
+
+        self.verticalLayout_29.addWidget(self.retail_finder_title)
+
+        self.item_name = QWidget(self.left_widget_5)
+        self.item_name.setObjectName(u"item_name")
+        sizePolicy10.setHeightForWidth(self.item_name.sizePolicy().hasHeightForWidth())
+        self.item_name.setSizePolicy(sizePolicy10)
+        self.formLayout_14 = QFormLayout(self.item_name)
+        self.formLayout_14.setObjectName(u"formLayout_14")
+        self.formLayout_14.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.formLayout_14.setLabelAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.item_name_label = QWidget(self.item_name)
+        self.item_name_label.setObjectName(u"item_name_label")
+        sizePolicy5.setHeightForWidth(self.item_name_label.sizePolicy().hasHeightForWidth())
+        self.item_name_label.setSizePolicy(sizePolicy5)
+        self.item_name_label.setMinimumSize(QSize(30, 0))
+        self.item_name_label.setToolTipDuration(-6)
+        self.item_name_label.setStyleSheet(u"color:red")
+
+        self.formLayout_14.setWidget(0, QFormLayout.ItemRole.LabelRole, self.item_name_label)
+
+        self.item_name_input = QWidget(self.item_name)
+        self.item_name_input.setObjectName(u"item_name_input")
+        sizePolicy5.setHeightForWidth(self.item_name_input.sizePolicy().hasHeightForWidth())
+        self.item_name_input.setSizePolicy(sizePolicy5)
+        self.item_name_input.setMinimumSize(QSize(200, 0))
+        self.item_name_input.setMaximumSize(QSize(16777215, 16777215))
+        self.item_name_input.setStyleSheet(u"")
+
+        self.formLayout_14.setWidget(0, QFormLayout.ItemRole.FieldRole, self.item_name_input)
+
+
+        self.verticalLayout_29.addWidget(self.item_name)
+
+        self.nil_9 = QWidget(self.left_widget_5)
+        self.nil_9.setObjectName(u"nil_9")
+        sizePolicy2.setHeightForWidth(self.nil_9.sizePolicy().hasHeightForWidth())
+        self.nil_9.setSizePolicy(sizePolicy2)
+        self.verticalLayout_32 = QVBoxLayout(self.nil_9)
+        self.verticalLayout_32.setObjectName(u"verticalLayout_32")
+        self.verticalLayout_32.setContentsMargins(0, 0, 0, 0)
+
+        self.verticalLayout_29.addWidget(self.nil_9)
+
+        self.nil_10 = QWidget(self.left_widget_5)
+        self.nil_10.setObjectName(u"nil_10")
+        sizePolicy3.setHeightForWidth(self.nil_10.sizePolicy().hasHeightForWidth())
+        self.nil_10.setSizePolicy(sizePolicy3)
+        self.formLayout_15 = QFormLayout(self.nil_10)
+        self.formLayout_15.setObjectName(u"formLayout_15")
+
+        self.verticalLayout_29.addWidget(self.nil_10)
+
+        self.nil_11 = QWidget(self.left_widget_5)
+        self.nil_11.setObjectName(u"nil_11")
+        sizePolicy9.setHeightForWidth(self.nil_11.sizePolicy().hasHeightForWidth())
+        self.nil_11.setSizePolicy(sizePolicy9)
+
+        self.verticalLayout_29.addWidget(self.nil_11)
+
+        self.nil_12 = QWidget(self.left_widget_5)
+        self.nil_12.setObjectName(u"nil_12")
+        sizePolicy10.setHeightForWidth(self.nil_12.sizePolicy().hasHeightForWidth())
+        self.nil_12.setSizePolicy(sizePolicy10)
+        self.formLayout_16 = QFormLayout(self.nil_12)
+        self.formLayout_16.setObjectName(u"formLayout_16")
+
+        self.verticalLayout_29.addWidget(self.nil_12)
+
+
+        self.horizontalLayout_7.addWidget(self.left_widget_5)
+
+        self.retail_results_table_pane = QWidget(self.scrollAreaWidgetContents_6)
+        self.retail_results_table_pane.setObjectName(u"retail_results_table_pane")
+        sizePolicy12.setHeightForWidth(self.retail_results_table_pane.sizePolicy().hasHeightForWidth())
+        self.retail_results_table_pane.setSizePolicy(sizePolicy12)
+        self.verticalLayout_33 = QVBoxLayout(self.retail_results_table_pane)
+        self.verticalLayout_33.setSpacing(6)
+        self.verticalLayout_33.setObjectName(u"verticalLayout_33")
+        self.verticalLayout_33.setContentsMargins(0, 0, 0, 0)
+
+        self.horizontalLayout_7.addWidget(self.retail_results_table_pane)
+
+        self.scrollArea_7.setWidget(self.scrollAreaWidgetContents_6)
+
+        self.verticalLayout_34.addWidget(self.scrollArea_7)
+
+        self.pages.addWidget(self.page_7)
 
         self.verticalLayout_10.addWidget(self.pages)
 
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(5)
+        self.pages.setCurrentIndex(6)
 
 
         QMetaObject.connectSlotsByName(MainPages)

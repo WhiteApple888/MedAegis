@@ -54,6 +54,7 @@ from . crcl_calculator_page import CrClCalculatorPage
 from .nehr_list_parser_page import NEHRListParserPage
 from .pick_pop_finder_page import PickPopFinderPage
 from .mfd_info_page import MFDInfoPage
+from .retail_prescribable_list import RetailListPage
 
 # PY WINDOW
 # ///////////////////////////////////////////////////////////////
@@ -114,6 +115,14 @@ class SetupMainWindow:
             "btn_id" : "btn_mfd_info",
             "btn_text" : "Medifund Info",
             "btn_tooltip" : "Medifund Info",
+            "show_top" : True,
+            "is_active" : False        
+        },
+        {
+            "btn_icon" : "icon_shopping_cart.svg",
+            "btn_id" : "btn_retail_prescibable_list_finder",
+            "btn_text" : "Retail Prescribable List Finder",
+            "btn_tooltip" : "Retail Prescribable List Finder",
             "show_top" : True,
             "is_active" : False        
         },
@@ -336,6 +345,12 @@ class SetupMainWindow:
 
         # PAGE 6 - Medifund_info
         self.mfd_info_page = MFDInfoPage(
+                            self.ui, 
+                            themes = self.themes
+        )
+
+        # PAGE 7 - Retail Prescribable List Finder
+        self.mfd_info_page = RetailListPage(
                             self.ui, 
                             themes = self.themes
         )

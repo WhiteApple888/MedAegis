@@ -188,7 +188,7 @@ class MainWindow(QMainWindow):
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
 
-            # Load Page 4
+            # Load Page 5
             MainFunctions.set_page(self, self.ui.load_pages.page_5)
 
         # Medifund Info
@@ -196,8 +196,16 @@ class MainWindow(QMainWindow):
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
 
-            # Load Page 4
+            # Load Page 6
             MainFunctions.set_page(self, self.ui.load_pages.page_6)
+
+        # Retail Prescribable List Finder
+        if btn.objectName() == "btn_retail_prescibable_list_finder":
+            # Select Menu
+            self.ui.left_menu.select_only_one(btn.objectName())
+
+            # Load Page 7
+            MainFunctions.set_page(self, self.ui.load_pages.page_7)
         
         # BOTTOM INFORMATION
         if btn.objectName() == "btn_info":
