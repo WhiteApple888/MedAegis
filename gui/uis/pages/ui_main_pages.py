@@ -15,19 +15,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFormLayout, QFrame, QHBoxLayout,
-    QLabel, QLayout, QScrollArea, QSizePolicy,
-    QStackedWidget, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFormLayout, QFrame, QGridLayout,
+    QHBoxLayout, QLabel, QLayout, QScrollArea,
+    QSizePolicy, QStackedWidget, QVBoxLayout, QWidget)
 
 class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(731, 670)
+        MainPages.resize(1230, 670)
         self.verticalLayout_10 = QVBoxLayout(MainPages)
-        self.verticalLayout_10.setSpacing(0)
         self.verticalLayout_10.setObjectName(u"verticalLayout_10")
-        self.verticalLayout_10.setContentsMargins(5, 5, 5, 5)
         self.pages = QStackedWidget(MainPages)
         self.pages.setObjectName(u"pages")
         self.page_1 = QWidget()
@@ -72,7 +70,7 @@ class Ui_MainPages(object):
         self.pages.addWidget(self.page_1)
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
-        self.page_2.setStyleSheet(u"")
+        self.page_2.setStyleSheet(u"border: 1px solid black;")
         self.page_2_layout = QVBoxLayout(self.page_2)
         self.page_2_layout.setSpacing(5)
         self.page_2_layout.setObjectName(u"page_2_layout")
@@ -86,7 +84,7 @@ class Ui_MainPages(object):
         self.scroll_area_2.setWidgetResizable(True)
         self.contents = QWidget()
         self.contents.setObjectName(u"contents")
-        self.contents.setGeometry(QRect(0, 0, 116, 106))
+        self.contents.setGeometry(QRect(0, 0, 1206, 646))
         self.contents.setStyleSheet(u"")
         self.verticalLayout = QVBoxLayout(self.contents)
         self.verticalLayout.setSpacing(15)
@@ -220,36 +218,74 @@ class Ui_MainPages(object):
         self.horizontalLayout_2 = QHBoxLayout(self.crcl_calculator_output)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.result_male_label_1 = QWidget(self.crcl_calculator_output)
-        self.result_male_label_1.setObjectName(u"result_male_label_1")
-        sizePolicy5.setHeightForWidth(self.result_male_label_1.sizePolicy().hasHeightForWidth())
-        self.result_male_label_1.setSizePolicy(sizePolicy5)
+        self.crcl_male_label = QWidget(self.crcl_calculator_output)
+        self.crcl_male_label.setObjectName(u"crcl_male_label")
+        sizePolicy5.setHeightForWidth(self.crcl_male_label.sizePolicy().hasHeightForWidth())
+        self.crcl_male_label.setSizePolicy(sizePolicy5)
 
-        self.horizontalLayout_2.addWidget(self.result_male_label_1)
+        self.horizontalLayout_2.addWidget(self.crcl_male_label)
 
-        self.val_male_1 = QWidget(self.crcl_calculator_output)
-        self.val_male_1.setObjectName(u"val_male_1")
-        sizePolicy5.setHeightForWidth(self.val_male_1.sizePolicy().hasHeightForWidth())
-        self.val_male_1.setSizePolicy(sizePolicy5)
+        self.crcl_male = QWidget(self.crcl_calculator_output)
+        self.crcl_male.setObjectName(u"crcl_male")
+        sizePolicy5.setHeightForWidth(self.crcl_male.sizePolicy().hasHeightForWidth())
+        self.crcl_male.setSizePolicy(sizePolicy5)
 
-        self.horizontalLayout_2.addWidget(self.val_male_1)
+        self.horizontalLayout_2.addWidget(self.crcl_male)
 
-        self.result_female_label_1 = QWidget(self.crcl_calculator_output)
-        self.result_female_label_1.setObjectName(u"result_female_label_1")
-        sizePolicy5.setHeightForWidth(self.result_female_label_1.sizePolicy().hasHeightForWidth())
-        self.result_female_label_1.setSizePolicy(sizePolicy5)
+        self.crcl_female_label = QWidget(self.crcl_calculator_output)
+        self.crcl_female_label.setObjectName(u"crcl_female_label")
+        sizePolicy5.setHeightForWidth(self.crcl_female_label.sizePolicy().hasHeightForWidth())
+        self.crcl_female_label.setSizePolicy(sizePolicy5)
 
-        self.horizontalLayout_2.addWidget(self.result_female_label_1)
+        self.horizontalLayout_2.addWidget(self.crcl_female_label)
 
-        self.val_female_1 = QWidget(self.crcl_calculator_output)
-        self.val_female_1.setObjectName(u"val_female_1")
-        sizePolicy5.setHeightForWidth(self.val_female_1.sizePolicy().hasHeightForWidth())
-        self.val_female_1.setSizePolicy(sizePolicy5)
+        self.crcl_female = QWidget(self.crcl_calculator_output)
+        self.crcl_female.setObjectName(u"crcl_female")
+        sizePolicy5.setHeightForWidth(self.crcl_female.sizePolicy().hasHeightForWidth())
+        self.crcl_female.setSizePolicy(sizePolicy5)
 
-        self.horizontalLayout_2.addWidget(self.val_female_1)
+        self.horizontalLayout_2.addWidget(self.crcl_female)
 
 
         self.verticalLayout_2.addWidget(self.crcl_calculator_output)
+
+        self.egfr_calculator_output = QWidget(self.crcl_calculator_input_output)
+        self.egfr_calculator_output.setObjectName(u"egfr_calculator_output")
+        sizePolicy5.setHeightForWidth(self.egfr_calculator_output.sizePolicy().hasHeightForWidth())
+        self.egfr_calculator_output.setSizePolicy(sizePolicy5)
+        self.horizontalLayout_5 = QHBoxLayout(self.egfr_calculator_output)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.egfr_male_label = QWidget(self.egfr_calculator_output)
+        self.egfr_male_label.setObjectName(u"egfr_male_label")
+        sizePolicy5.setHeightForWidth(self.egfr_male_label.sizePolicy().hasHeightForWidth())
+        self.egfr_male_label.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_5.addWidget(self.egfr_male_label)
+
+        self.egfr_male = QWidget(self.egfr_calculator_output)
+        self.egfr_male.setObjectName(u"egfr_male")
+        sizePolicy5.setHeightForWidth(self.egfr_male.sizePolicy().hasHeightForWidth())
+        self.egfr_male.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_5.addWidget(self.egfr_male)
+
+        self.egfr_female_label = QWidget(self.egfr_calculator_output)
+        self.egfr_female_label.setObjectName(u"egfr_female_label")
+        sizePolicy5.setHeightForWidth(self.egfr_female_label.sizePolicy().hasHeightForWidth())
+        self.egfr_female_label.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_5.addWidget(self.egfr_female_label)
+
+        self.egfr_female = QWidget(self.egfr_calculator_output)
+        self.egfr_female.setObjectName(u"egfr_female")
+        sizePolicy5.setHeightForWidth(self.egfr_female.sizePolicy().hasHeightForWidth())
+        self.egfr_female.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_5.addWidget(self.egfr_female)
+
+
+        self.verticalLayout_2.addWidget(self.egfr_calculator_output)
 
         self.renal_drugs_list = QWidget(self.crcl_calculator_input_output)
         self.renal_drugs_list.setObjectName(u"renal_drugs_list")
@@ -276,19 +312,183 @@ class Ui_MainPages(object):
         self.right.setSizePolicy(sizePolicy8)
         self.verticalLayout_11 = QVBoxLayout(self.right)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
-        self.frame = QFrame(self.right)
-        self.frame.setObjectName(u"frame")
-        sizePolicy2.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy2)
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
+        self.ibw_abw_bmi = QFrame(self.right)
+        self.ibw_abw_bmi.setObjectName(u"ibw_abw_bmi")
+        sizePolicy9 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy9.setHorizontalStretch(0)
+        sizePolicy9.setVerticalStretch(2)
+        sizePolicy9.setHeightForWidth(self.ibw_abw_bmi.sizePolicy().hasHeightForWidth())
+        self.ibw_abw_bmi.setSizePolicy(sizePolicy9)
+        self.ibw_abw_bmi.setFrameShape(QFrame.StyledPanel)
+        self.ibw_abw_bmi.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_26 = QVBoxLayout(self.ibw_abw_bmi)
+        self.verticalLayout_26.setSpacing(0)
+        self.verticalLayout_26.setObjectName(u"verticalLayout_26")
+        self.verticalLayout_26.setContentsMargins(0, 0, 0, 0)
+        self.ibw_abw_bmi_title = QWidget(self.ibw_abw_bmi)
+        self.ibw_abw_bmi_title.setObjectName(u"ibw_abw_bmi_title")
+        sizePolicy2.setHeightForWidth(self.ibw_abw_bmi_title.sizePolicy().hasHeightForWidth())
+        self.ibw_abw_bmi_title.setSizePolicy(sizePolicy2)
 
-        self.verticalLayout_11.addWidget(self.frame)
+        self.verticalLayout_26.addWidget(self.ibw_abw_bmi_title)
+
+        self.ibw_abw_bmi_input_output = QWidget(self.ibw_abw_bmi)
+        self.ibw_abw_bmi_input_output.setObjectName(u"ibw_abw_bmi_input_output")
+        sizePolicy10 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy10.setHorizontalStretch(0)
+        sizePolicy10.setVerticalStretch(8)
+        sizePolicy10.setHeightForWidth(self.ibw_abw_bmi_input_output.sizePolicy().hasHeightForWidth())
+        self.ibw_abw_bmi_input_output.setSizePolicy(sizePolicy10)
+        self.verticalLayout_25 = QVBoxLayout(self.ibw_abw_bmi_input_output)
+        self.verticalLayout_25.setSpacing(2)
+        self.verticalLayout_25.setObjectName(u"verticalLayout_25")
+        self.verticalLayout_25.setContentsMargins(0, 0, 0, 0)
+        self.bmi_ibw_abw_calculator_input = QWidget(self.ibw_abw_bmi_input_output)
+        self.bmi_ibw_abw_calculator_input.setObjectName(u"bmi_ibw_abw_calculator_input")
+        sizePolicy5.setHeightForWidth(self.bmi_ibw_abw_calculator_input.sizePolicy().hasHeightForWidth())
+        self.bmi_ibw_abw_calculator_input.setSizePolicy(sizePolicy5)
+        self.gridLayout = QGridLayout(self.bmi_ibw_abw_calculator_input)
+        self.gridLayout.setSpacing(4)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.height_label = QWidget(self.bmi_ibw_abw_calculator_input)
+        self.height_label.setObjectName(u"height_label")
+        sizePolicy5.setHeightForWidth(self.height_label.sizePolicy().hasHeightForWidth())
+        self.height_label.setSizePolicy(sizePolicy5)
+        self.height_label.setMinimumSize(QSize(30, 0))
+
+        self.gridLayout.addWidget(self.height_label, 0, 0, 1, 1)
+
+        self.height = QWidget(self.bmi_ibw_abw_calculator_input)
+        self.height.setObjectName(u"height")
+        sizePolicy5.setHeightForWidth(self.height.sizePolicy().hasHeightForWidth())
+        self.height.setSizePolicy(sizePolicy5)
+        self.height.setMinimumSize(QSize(30, 0))
+
+        self.gridLayout.addWidget(self.height, 0, 1, 1, 1)
+
+        self.weight_label_2 = QWidget(self.bmi_ibw_abw_calculator_input)
+        self.weight_label_2.setObjectName(u"weight_label_2")
+        sizePolicy5.setHeightForWidth(self.weight_label_2.sizePolicy().hasHeightForWidth())
+        self.weight_label_2.setSizePolicy(sizePolicy5)
+        self.weight_label_2.setMinimumSize(QSize(30, 0))
+
+        self.gridLayout.addWidget(self.weight_label_2, 1, 0, 1, 1)
+
+        self.weight_2 = QWidget(self.bmi_ibw_abw_calculator_input)
+        self.weight_2.setObjectName(u"weight_2")
+        sizePolicy5.setHeightForWidth(self.weight_2.sizePolicy().hasHeightForWidth())
+        self.weight_2.setSizePolicy(sizePolicy5)
+        self.weight_2.setMinimumSize(QSize(30, 0))
+
+        self.gridLayout.addWidget(self.weight_2, 1, 1, 1, 1)
+
+        self.bmi_label = QWidget(self.bmi_ibw_abw_calculator_input)
+        self.bmi_label.setObjectName(u"bmi_label")
+        sizePolicy5.setHeightForWidth(self.bmi_label.sizePolicy().hasHeightForWidth())
+        self.bmi_label.setSizePolicy(sizePolicy5)
+
+        self.gridLayout.addWidget(self.bmi_label, 2, 0, 1, 1)
+
+        self.bmi = QWidget(self.bmi_ibw_abw_calculator_input)
+        self.bmi.setObjectName(u"bmi")
+        sizePolicy5.setHeightForWidth(self.bmi.sizePolicy().hasHeightForWidth())
+        self.bmi.setSizePolicy(sizePolicy5)
+
+        self.gridLayout.addWidget(self.bmi, 2, 1, 1, 1)
+
+
+        self.verticalLayout_25.addWidget(self.bmi_ibw_abw_calculator_input)
+
+        self.ibw_calculator_output = QWidget(self.ibw_abw_bmi_input_output)
+        self.ibw_calculator_output.setObjectName(u"ibw_calculator_output")
+        sizePolicy5.setHeightForWidth(self.ibw_calculator_output.sizePolicy().hasHeightForWidth())
+        self.ibw_calculator_output.setSizePolicy(sizePolicy5)
+        self.horizontalLayout_16 = QHBoxLayout(self.ibw_calculator_output)
+        self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
+        self.horizontalLayout_16.setContentsMargins(0, 0, 0, 6)
+        self.ibw_male_label = QWidget(self.ibw_calculator_output)
+        self.ibw_male_label.setObjectName(u"ibw_male_label")
+        sizePolicy11 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy11.setHorizontalStretch(2)
+        sizePolicy11.setVerticalStretch(1)
+        sizePolicy11.setHeightForWidth(self.ibw_male_label.sizePolicy().hasHeightForWidth())
+        self.ibw_male_label.setSizePolicy(sizePolicy11)
+
+        self.horizontalLayout_16.addWidget(self.ibw_male_label)
+
+        self.ibw_male = QWidget(self.ibw_calculator_output)
+        self.ibw_male.setObjectName(u"ibw_male")
+        sizePolicy5.setHeightForWidth(self.ibw_male.sizePolicy().hasHeightForWidth())
+        self.ibw_male.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_16.addWidget(self.ibw_male)
+
+        self.ibw_female_label = QWidget(self.ibw_calculator_output)
+        self.ibw_female_label.setObjectName(u"ibw_female_label")
+        sizePolicy11.setHeightForWidth(self.ibw_female_label.sizePolicy().hasHeightForWidth())
+        self.ibw_female_label.setSizePolicy(sizePolicy11)
+
+        self.horizontalLayout_16.addWidget(self.ibw_female_label)
+
+        self.ibw_female = QWidget(self.ibw_calculator_output)
+        self.ibw_female.setObjectName(u"ibw_female")
+        sizePolicy5.setHeightForWidth(self.ibw_female.sizePolicy().hasHeightForWidth())
+        self.ibw_female.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_16.addWidget(self.ibw_female)
+
+
+        self.verticalLayout_25.addWidget(self.ibw_calculator_output)
+
+        self.abw_calculator_output = QWidget(self.ibw_abw_bmi_input_output)
+        self.abw_calculator_output.setObjectName(u"abw_calculator_output")
+        sizePolicy5.setHeightForWidth(self.abw_calculator_output.sizePolicy().hasHeightForWidth())
+        self.abw_calculator_output.setSizePolicy(sizePolicy5)
+        self.horizontalLayout_17 = QHBoxLayout(self.abw_calculator_output)
+        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
+        self.horizontalLayout_17.setContentsMargins(0, 0, 0, 0)
+        self.abw_male_label = QWidget(self.abw_calculator_output)
+        self.abw_male_label.setObjectName(u"abw_male_label")
+        sizePolicy11.setHeightForWidth(self.abw_male_label.sizePolicy().hasHeightForWidth())
+        self.abw_male_label.setSizePolicy(sizePolicy11)
+
+        self.horizontalLayout_17.addWidget(self.abw_male_label)
+
+        self.abw_male = QWidget(self.abw_calculator_output)
+        self.abw_male.setObjectName(u"abw_male")
+        sizePolicy5.setHeightForWidth(self.abw_male.sizePolicy().hasHeightForWidth())
+        self.abw_male.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_17.addWidget(self.abw_male)
+
+        self.abw_female_label = QWidget(self.abw_calculator_output)
+        self.abw_female_label.setObjectName(u"abw_female_label")
+        sizePolicy11.setHeightForWidth(self.abw_female_label.sizePolicy().hasHeightForWidth())
+        self.abw_female_label.setSizePolicy(sizePolicy11)
+
+        self.horizontalLayout_17.addWidget(self.abw_female_label)
+
+        self.abw_female = QWidget(self.abw_calculator_output)
+        self.abw_female.setObjectName(u"abw_female")
+        sizePolicy5.setHeightForWidth(self.abw_female.sizePolicy().hasHeightForWidth())
+        self.abw_female.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_17.addWidget(self.abw_female)
+
+
+        self.verticalLayout_25.addWidget(self.abw_calculator_output)
+
+
+        self.verticalLayout_26.addWidget(self.ibw_abw_bmi_input_output)
+
+
+        self.verticalLayout_11.addWidget(self.ibw_abw_bmi)
 
         self.ddi_drugs_list = QFrame(self.right)
         self.ddi_drugs_list.setObjectName(u"ddi_drugs_list")
-        sizePolicy2.setHeightForWidth(self.ddi_drugs_list.sizePolicy().hasHeightForWidth())
-        self.ddi_drugs_list.setSizePolicy(sizePolicy2)
+        sizePolicy9.setHeightForWidth(self.ddi_drugs_list.sizePolicy().hasHeightForWidth())
+        self.ddi_drugs_list.setSizePolicy(sizePolicy9)
         self.ddi_drugs_list.setFrameShape(QFrame.StyledPanel)
         self.ddi_drugs_list.setFrameShadow(QFrame.Raised)
 
@@ -330,21 +530,21 @@ class Ui_MainPages(object):
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.supply_tracker_title_1 = QWidget(self.left_widget)
         self.supply_tracker_title_1.setObjectName(u"supply_tracker_title_1")
-        sizePolicy9 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy9.setHorizontalStretch(0)
-        sizePolicy9.setVerticalStretch(1)
-        sizePolicy9.setHeightForWidth(self.supply_tracker_title_1.sizePolicy().hasHeightForWidth())
-        self.supply_tracker_title_1.setSizePolicy(sizePolicy9)
+        sizePolicy12 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy12.setHorizontalStretch(0)
+        sizePolicy12.setVerticalStretch(1)
+        sizePolicy12.setHeightForWidth(self.supply_tracker_title_1.sizePolicy().hasHeightForWidth())
+        self.supply_tracker_title_1.setSizePolicy(sizePolicy12)
 
         self.verticalLayout_6.addWidget(self.supply_tracker_title_1)
 
         self.suup = QWidget(self.left_widget)
         self.suup.setObjectName(u"suup")
-        sizePolicy10 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy10.setHorizontalStretch(0)
-        sizePolicy10.setVerticalStretch(10)
-        sizePolicy10.setHeightForWidth(self.suup.sizePolicy().hasHeightForWidth())
-        self.suup.setSizePolicy(sizePolicy10)
+        sizePolicy13 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy13.setHorizontalStretch(0)
+        sizePolicy13.setVerticalStretch(10)
+        sizePolicy13.setHeightForWidth(self.suup.sizePolicy().hasHeightForWidth())
+        self.suup.setSizePolicy(sizePolicy13)
         self.formLayout = QFormLayout(self.suup)
         self.formLayout.setObjectName(u"formLayout")
         self.formLayout.setSizeConstraint(QLayout.SetDefaultConstraint)
@@ -482,8 +682,8 @@ class Ui_MainPages(object):
         self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
         self.process_btn = QWidget(self.claer_process_btns)
         self.process_btn.setObjectName(u"process_btn")
-        sizePolicy9.setHeightForWidth(self.process_btn.sizePolicy().hasHeightForWidth())
-        self.process_btn.setSizePolicy(sizePolicy9)
+        sizePolicy12.setHeightForWidth(self.process_btn.sizePolicy().hasHeightForWidth())
+        self.process_btn.setSizePolicy(sizePolicy12)
         self.verticalLayout_18 = QVBoxLayout(self.process_btn)
         self.verticalLayout_18.setObjectName(u"verticalLayout_18")
 
@@ -491,8 +691,8 @@ class Ui_MainPages(object):
 
         self.clear_btn = QWidget(self.claer_process_btns)
         self.clear_btn.setObjectName(u"clear_btn")
-        sizePolicy9.setHeightForWidth(self.clear_btn.sizePolicy().hasHeightForWidth())
-        self.clear_btn.setSizePolicy(sizePolicy9)
+        sizePolicy12.setHeightForWidth(self.clear_btn.sizePolicy().hasHeightForWidth())
+        self.clear_btn.setSizePolicy(sizePolicy12)
         self.verticalLayout_20 = QVBoxLayout(self.clear_btn)
         self.verticalLayout_20.setObjectName(u"verticalLayout_20")
 
@@ -509,15 +709,15 @@ class Ui_MainPages(object):
 
         self.calculate_duration_title_1 = QWidget(self.left_widget)
         self.calculate_duration_title_1.setObjectName(u"calculate_duration_title_1")
-        sizePolicy9.setHeightForWidth(self.calculate_duration_title_1.sizePolicy().hasHeightForWidth())
-        self.calculate_duration_title_1.setSizePolicy(sizePolicy9)
+        sizePolicy12.setHeightForWidth(self.calculate_duration_title_1.sizePolicy().hasHeightForWidth())
+        self.calculate_duration_title_1.setSizePolicy(sizePolicy12)
 
         self.verticalLayout_6.addWidget(self.calculate_duration_title_1)
 
         self.calculate_duration = QWidget(self.left_widget)
         self.calculate_duration.setObjectName(u"calculate_duration")
-        sizePolicy10.setHeightForWidth(self.calculate_duration.sizePolicy().hasHeightForWidth())
-        self.calculate_duration.setSizePolicy(sizePolicy10)
+        sizePolicy13.setHeightForWidth(self.calculate_duration.sizePolicy().hasHeightForWidth())
+        self.calculate_duration.setSizePolicy(sizePolicy13)
         self.formLayout_3 = QFormLayout(self.calculate_duration)
         self.formLayout_3.setObjectName(u"formLayout_3")
         self.start_date_label_1 = QWidget(self.calculate_duration)
@@ -530,9 +730,6 @@ class Ui_MainPages(object):
 
         self.start_date_1 = QWidget(self.calculate_duration)
         self.start_date_1.setObjectName(u"start_date_1")
-        sizePolicy11 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy11.setHorizontalStretch(2)
-        sizePolicy11.setVerticalStretch(1)
         sizePolicy11.setHeightForWidth(self.start_date_1.sizePolicy().hasHeightForWidth())
         self.start_date_1.setSizePolicy(sizePolicy11)
         self.start_date_1.setMinimumSize(QSize(200, 0))
@@ -579,11 +776,11 @@ class Ui_MainPages(object):
 
         self.right_widget = QWidget(self.scrollAreaWidgetContents_3)
         self.right_widget.setObjectName(u"right_widget")
-        sizePolicy12 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy12.setHorizontalStretch(10)
-        sizePolicy12.setVerticalStretch(0)
-        sizePolicy12.setHeightForWidth(self.right_widget.sizePolicy().hasHeightForWidth())
-        self.right_widget.setSizePolicy(sizePolicy12)
+        sizePolicy14 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy14.setHorizontalStretch(10)
+        sizePolicy14.setVerticalStretch(0)
+        sizePolicy14.setHeightForWidth(self.right_widget.sizePolicy().hasHeightForWidth())
+        self.right_widget.setSizePolicy(sizePolicy14)
         self.verticalLayout_4 = QVBoxLayout(self.right_widget)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
@@ -602,21 +799,18 @@ class Ui_MainPages(object):
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.graph = QWidget(self.datawidget)
         self.graph.setObjectName(u"graph")
-        sizePolicy13 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy13.setHorizontalStretch(0)
-        sizePolicy13.setVerticalStretch(4)
-        sizePolicy13.setHeightForWidth(self.graph.sizePolicy().hasHeightForWidth())
-        self.graph.setSizePolicy(sizePolicy13)
+        sizePolicy15 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy15.setHorizontalStretch(0)
+        sizePolicy15.setVerticalStretch(4)
+        sizePolicy15.setHeightForWidth(self.graph.sizePolicy().hasHeightForWidth())
+        self.graph.setSizePolicy(sizePolicy15)
 
         self.verticalLayout_7.addWidget(self.graph)
 
         self.total_table = QWidget(self.datawidget)
         self.total_table.setObjectName(u"total_table")
-        sizePolicy14 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy14.setHorizontalStretch(0)
-        sizePolicy14.setVerticalStretch(2)
-        sizePolicy14.setHeightForWidth(self.total_table.sizePolicy().hasHeightForWidth())
-        self.total_table.setSizePolicy(sizePolicy14)
+        sizePolicy9.setHeightForWidth(self.total_table.sizePolicy().hasHeightForWidth())
+        self.total_table.setSizePolicy(sizePolicy9)
 
         self.verticalLayout_7.addWidget(self.total_table)
 
@@ -644,7 +838,7 @@ class Ui_MainPages(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 98, 76))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 74, 76))
         self.verticalLayout_16 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_16.setObjectName(u"verticalLayout_16")
         self.whole = QWidget(self.scrollAreaWidgetContents)
@@ -676,11 +870,11 @@ class Ui_MainPages(object):
 
         self.input_text_2 = QWidget(self.left_2)
         self.input_text_2.setObjectName(u"input_text_2")
-        sizePolicy15 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy15.setHorizontalStretch(1)
-        sizePolicy15.setVerticalStretch(6)
-        sizePolicy15.setHeightForWidth(self.input_text_2.sizePolicy().hasHeightForWidth())
-        self.input_text_2.setSizePolicy(sizePolicy15)
+        sizePolicy16 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy16.setHorizontalStretch(1)
+        sizePolicy16.setVerticalStretch(6)
+        sizePolicy16.setHeightForWidth(self.input_text_2.sizePolicy().hasHeightForWidth())
+        self.input_text_2.setSizePolicy(sizePolicy16)
         self.horizontalLayout_13 = QHBoxLayout(self.input_text_2)
         self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
 
@@ -696,8 +890,8 @@ class Ui_MainPages(object):
         self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
         self.process_btn_2 = QWidget(self.claer_process_btns_2)
         self.process_btn_2.setObjectName(u"process_btn_2")
-        sizePolicy9.setHeightForWidth(self.process_btn_2.sizePolicy().hasHeightForWidth())
-        self.process_btn_2.setSizePolicy(sizePolicy9)
+        sizePolicy12.setHeightForWidth(self.process_btn_2.sizePolicy().hasHeightForWidth())
+        self.process_btn_2.setSizePolicy(sizePolicy12)
         self.verticalLayout_19 = QVBoxLayout(self.process_btn_2)
         self.verticalLayout_19.setObjectName(u"verticalLayout_19")
 
@@ -705,8 +899,8 @@ class Ui_MainPages(object):
 
         self.clear_btn_2 = QWidget(self.claer_process_btns_2)
         self.clear_btn_2.setObjectName(u"clear_btn_2")
-        sizePolicy9.setHeightForWidth(self.clear_btn_2.sizePolicy().hasHeightForWidth())
-        self.clear_btn_2.setSizePolicy(sizePolicy9)
+        sizePolicy12.setHeightForWidth(self.clear_btn_2.sizePolicy().hasHeightForWidth())
+        self.clear_btn_2.setSizePolicy(sizePolicy12)
         self.verticalLayout_21 = QVBoxLayout(self.clear_btn_2)
         self.verticalLayout_21.setObjectName(u"verticalLayout_21")
 
@@ -720,8 +914,8 @@ class Ui_MainPages(object):
 
         self.right_2 = QWidget(self.right_widget_3)
         self.right_2.setObjectName(u"right_2")
-        sizePolicy12.setHeightForWidth(self.right_2.sizePolicy().hasHeightForWidth())
-        self.right_2.setSizePolicy(sizePolicy12)
+        sizePolicy14.setHeightForWidth(self.right_2.sizePolicy().hasHeightForWidth())
+        self.right_2.setSizePolicy(sizePolicy14)
         self.verticalLayout_15 = QVBoxLayout(self.right_2)
         self.verticalLayout_15.setObjectName(u"verticalLayout_15")
         self.chronic_med_list_title = QWidget(self.right_2)
@@ -733,11 +927,11 @@ class Ui_MainPages(object):
 
         self.chronic_med_list = QWidget(self.right_2)
         self.chronic_med_list.setObjectName(u"chronic_med_list")
-        sizePolicy16 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy16.setHorizontalStretch(0)
-        sizePolicy16.setVerticalStretch(20)
-        sizePolicy16.setHeightForWidth(self.chronic_med_list.sizePolicy().hasHeightForWidth())
-        self.chronic_med_list.setSizePolicy(sizePolicy16)
+        sizePolicy17 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy17.setHorizontalStretch(0)
+        sizePolicy17.setVerticalStretch(20)
+        sizePolicy17.setHeightForWidth(self.chronic_med_list.sizePolicy().hasHeightForWidth())
+        self.chronic_med_list.setSizePolicy(sizePolicy17)
 
         self.verticalLayout_15.addWidget(self.chronic_med_list)
 
@@ -750,8 +944,8 @@ class Ui_MainPages(object):
 
         self.prn_med_list = QWidget(self.right_2)
         self.prn_med_list.setObjectName(u"prn_med_list")
-        sizePolicy10.setHeightForWidth(self.prn_med_list.sizePolicy().hasHeightForWidth())
-        self.prn_med_list.setSizePolicy(sizePolicy10)
+        sizePolicy13.setHeightForWidth(self.prn_med_list.sizePolicy().hasHeightForWidth())
+        self.prn_med_list.setSizePolicy(sizePolicy13)
 
         self.verticalLayout_15.addWidget(self.prn_med_list)
 
@@ -791,15 +985,15 @@ class Ui_MainPages(object):
         self.verticalLayout_22.setContentsMargins(0, 0, 0, 0)
         self.finder_title_pane = QWidget(self.left_widget_2)
         self.finder_title_pane.setObjectName(u"finder_title_pane")
-        sizePolicy9.setHeightForWidth(self.finder_title_pane.sizePolicy().hasHeightForWidth())
-        self.finder_title_pane.setSizePolicy(sizePolicy9)
+        sizePolicy12.setHeightForWidth(self.finder_title_pane.sizePolicy().hasHeightForWidth())
+        self.finder_title_pane.setSizePolicy(sizePolicy12)
 
         self.verticalLayout_22.addWidget(self.finder_title_pane)
 
         self.postal_input = QWidget(self.left_widget_2)
         self.postal_input.setObjectName(u"postal_input")
-        sizePolicy10.setHeightForWidth(self.postal_input.sizePolicy().hasHeightForWidth())
-        self.postal_input.setSizePolicy(sizePolicy10)
+        sizePolicy13.setHeightForWidth(self.postal_input.sizePolicy().hasHeightForWidth())
+        self.postal_input.setSizePolicy(sizePolicy13)
         self.formLayout_5 = QFormLayout(self.postal_input)
         self.formLayout_5.setObjectName(u"formLayout_5")
         self.formLayout_5.setSizeConstraint(QLayout.SetDefaultConstraint)
@@ -848,15 +1042,15 @@ class Ui_MainPages(object):
 
         self.nil_4 = QWidget(self.left_widget_2)
         self.nil_4.setObjectName(u"nil_4")
-        sizePolicy9.setHeightForWidth(self.nil_4.sizePolicy().hasHeightForWidth())
-        self.nil_4.setSizePolicy(sizePolicy9)
+        sizePolicy12.setHeightForWidth(self.nil_4.sizePolicy().hasHeightForWidth())
+        self.nil_4.setSizePolicy(sizePolicy12)
 
         self.verticalLayout_22.addWidget(self.nil_4)
 
         self.nil_3 = QWidget(self.left_widget_2)
         self.nil_3.setObjectName(u"nil_3")
-        sizePolicy10.setHeightForWidth(self.nil_3.sizePolicy().hasHeightForWidth())
-        self.nil_3.setSizePolicy(sizePolicy10)
+        sizePolicy13.setHeightForWidth(self.nil_3.sizePolicy().hasHeightForWidth())
+        self.nil_3.setSizePolicy(sizePolicy13)
         self.formLayout_7 = QFormLayout(self.nil_3)
         self.formLayout_7.setObjectName(u"formLayout_7")
 
@@ -867,8 +1061,8 @@ class Ui_MainPages(object):
 
         self.results_table_pane = QWidget(self.scrollAreaWidgetContents_2)
         self.results_table_pane.setObjectName(u"results_table_pane")
-        sizePolicy12.setHeightForWidth(self.results_table_pane.sizePolicy().hasHeightForWidth())
-        self.results_table_pane.setSizePolicy(sizePolicy12)
+        sizePolicy14.setHeightForWidth(self.results_table_pane.sizePolicy().hasHeightForWidth())
+        self.results_table_pane.setSizePolicy(sizePolicy14)
         self.verticalLayout_24 = QVBoxLayout(self.results_table_pane)
         self.verticalLayout_24.setSpacing(6)
         self.verticalLayout_24.setObjectName(u"verticalLayout_24")
@@ -903,22 +1097,22 @@ class Ui_MainPages(object):
         self.verticalLayout_28.setContentsMargins(0, 0, 0, 0)
         self.mfd_title = QWidget(self.left_widget_4)
         self.mfd_title.setObjectName(u"mfd_title")
-        sizePolicy17 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy17.setHorizontalStretch(6)
-        sizePolicy17.setVerticalStretch(1)
-        sizePolicy17.setHeightForWidth(self.mfd_title.sizePolicy().hasHeightForWidth())
-        self.mfd_title.setSizePolicy(sizePolicy17)
+        sizePolicy18 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy18.setHorizontalStretch(6)
+        sizePolicy18.setVerticalStretch(1)
+        sizePolicy18.setHeightForWidth(self.mfd_title.sizePolicy().hasHeightForWidth())
+        self.mfd_title.setSizePolicy(sizePolicy18)
         self.mfd_title.setCursor(QCursor(Qt.CursorShape.CrossCursor))
 
         self.verticalLayout_28.addWidget(self.mfd_title)
 
         self.mfd_coverage = QWidget(self.left_widget_4)
         self.mfd_coverage.setObjectName(u"mfd_coverage")
-        sizePolicy18 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy18.setHorizontalStretch(8)
-        sizePolicy18.setVerticalStretch(2)
-        sizePolicy18.setHeightForWidth(self.mfd_coverage.sizePolicy().hasHeightForWidth())
-        self.mfd_coverage.setSizePolicy(sizePolicy18)
+        sizePolicy19 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy19.setHorizontalStretch(8)
+        sizePolicy19.setVerticalStretch(2)
+        sizePolicy19.setHeightForWidth(self.mfd_coverage.sizePolicy().hasHeightForWidth())
+        self.mfd_coverage.setSizePolicy(sizePolicy19)
         self.formLayout_11 = QFormLayout(self.mfd_coverage)
         self.formLayout_11.setObjectName(u"formLayout_11")
         self.formLayout_11.setSizeConstraint(QLayout.SetDefaultConstraint)
@@ -928,11 +1122,11 @@ class Ui_MainPages(object):
 
         self.mfd_exclusions = QWidget(self.left_widget_4)
         self.mfd_exclusions.setObjectName(u"mfd_exclusions")
-        sizePolicy19 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy19.setHorizontalStretch(8)
-        sizePolicy19.setVerticalStretch(4)
-        sizePolicy19.setHeightForWidth(self.mfd_exclusions.sizePolicy().hasHeightForWidth())
-        self.mfd_exclusions.setSizePolicy(sizePolicy19)
+        sizePolicy20 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy20.setHorizontalStretch(8)
+        sizePolicy20.setVerticalStretch(4)
+        sizePolicy20.setHeightForWidth(self.mfd_exclusions.sizePolicy().hasHeightForWidth())
+        self.mfd_exclusions.setSizePolicy(sizePolicy20)
         self.formLayout_12 = QFormLayout(self.mfd_exclusions)
         self.formLayout_12.setObjectName(u"formLayout_12")
 
@@ -940,11 +1134,11 @@ class Ui_MainPages(object):
 
         self.mfd_auto_switch = QWidget(self.left_widget_4)
         self.mfd_auto_switch.setObjectName(u"mfd_auto_switch")
-        sizePolicy20 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy20.setHorizontalStretch(8)
-        sizePolicy20.setVerticalStretch(10)
-        sizePolicy20.setHeightForWidth(self.mfd_auto_switch.sizePolicy().hasHeightForWidth())
-        self.mfd_auto_switch.setSizePolicy(sizePolicy20)
+        sizePolicy21 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy21.setHorizontalStretch(8)
+        sizePolicy21.setVerticalStretch(10)
+        sizePolicy21.setHeightForWidth(self.mfd_auto_switch.sizePolicy().hasHeightForWidth())
+        self.mfd_auto_switch.setSizePolicy(sizePolicy21)
         self.formLayout_13 = QFormLayout(self.mfd_auto_switch)
         self.formLayout_13.setObjectName(u"formLayout_13")
 
@@ -955,11 +1149,11 @@ class Ui_MainPages(object):
 
         self.mfd_retail = QWidget(self.scrollAreaWidgetContents_5)
         self.mfd_retail.setObjectName(u"mfd_retail")
-        sizePolicy21 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy21.setHorizontalStretch(2)
-        sizePolicy21.setVerticalStretch(0)
-        sizePolicy21.setHeightForWidth(self.mfd_retail.sizePolicy().hasHeightForWidth())
-        self.mfd_retail.setSizePolicy(sizePolicy21)
+        sizePolicy22 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy22.setHorizontalStretch(2)
+        sizePolicy22.setVerticalStretch(0)
+        sizePolicy22.setHeightForWidth(self.mfd_retail.sizePolicy().hasHeightForWidth())
+        self.mfd_retail.setSizePolicy(sizePolicy22)
         self.verticalLayout_30 = QVBoxLayout(self.mfd_retail)
         self.verticalLayout_30.setSpacing(6)
         self.verticalLayout_30.setObjectName(u"verticalLayout_30")
@@ -994,15 +1188,15 @@ class Ui_MainPages(object):
         self.verticalLayout_29.setContentsMargins(0, 0, 0, 0)
         self.retail_finder_title = QWidget(self.left_widget_5)
         self.retail_finder_title.setObjectName(u"retail_finder_title")
-        sizePolicy9.setHeightForWidth(self.retail_finder_title.sizePolicy().hasHeightForWidth())
-        self.retail_finder_title.setSizePolicy(sizePolicy9)
+        sizePolicy12.setHeightForWidth(self.retail_finder_title.sizePolicy().hasHeightForWidth())
+        self.retail_finder_title.setSizePolicy(sizePolicy12)
 
         self.verticalLayout_29.addWidget(self.retail_finder_title)
 
         self.item_name = QWidget(self.left_widget_5)
         self.item_name.setObjectName(u"item_name")
-        sizePolicy10.setHeightForWidth(self.item_name.sizePolicy().hasHeightForWidth())
-        self.item_name.setSizePolicy(sizePolicy10)
+        sizePolicy13.setHeightForWidth(self.item_name.sizePolicy().hasHeightForWidth())
+        self.item_name.setSizePolicy(sizePolicy13)
         self.formLayout_14 = QFormLayout(self.item_name)
         self.formLayout_14.setObjectName(u"formLayout_14")
         self.formLayout_14.setSizeConstraint(QLayout.SetDefaultConstraint)
@@ -1051,15 +1245,15 @@ class Ui_MainPages(object):
 
         self.nil_11 = QWidget(self.left_widget_5)
         self.nil_11.setObjectName(u"nil_11")
-        sizePolicy9.setHeightForWidth(self.nil_11.sizePolicy().hasHeightForWidth())
-        self.nil_11.setSizePolicy(sizePolicy9)
+        sizePolicy12.setHeightForWidth(self.nil_11.sizePolicy().hasHeightForWidth())
+        self.nil_11.setSizePolicy(sizePolicy12)
 
         self.verticalLayout_29.addWidget(self.nil_11)
 
         self.nil_12 = QWidget(self.left_widget_5)
         self.nil_12.setObjectName(u"nil_12")
-        sizePolicy10.setHeightForWidth(self.nil_12.sizePolicy().hasHeightForWidth())
-        self.nil_12.setSizePolicy(sizePolicy10)
+        sizePolicy13.setHeightForWidth(self.nil_12.sizePolicy().hasHeightForWidth())
+        self.nil_12.setSizePolicy(sizePolicy13)
         self.formLayout_16 = QFormLayout(self.nil_12)
         self.formLayout_16.setObjectName(u"formLayout_16")
 
@@ -1070,8 +1264,8 @@ class Ui_MainPages(object):
 
         self.retail_results_table_pane = QWidget(self.scrollAreaWidgetContents_6)
         self.retail_results_table_pane.setObjectName(u"retail_results_table_pane")
-        sizePolicy12.setHeightForWidth(self.retail_results_table_pane.sizePolicy().hasHeightForWidth())
-        self.retail_results_table_pane.setSizePolicy(sizePolicy12)
+        sizePolicy14.setHeightForWidth(self.retail_results_table_pane.sizePolicy().hasHeightForWidth())
+        self.retail_results_table_pane.setSizePolicy(sizePolicy14)
         self.verticalLayout_33 = QVBoxLayout(self.retail_results_table_pane)
         self.verticalLayout_33.setSpacing(6)
         self.verticalLayout_33.setObjectName(u"verticalLayout_33")
@@ -1090,7 +1284,7 @@ class Ui_MainPages(object):
 
         self.retranslateUi(MainPages)
 
-        self.pages.setCurrentIndex(6)
+        self.pages.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainPages)

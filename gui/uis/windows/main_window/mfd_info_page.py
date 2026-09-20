@@ -102,7 +102,6 @@ class MFDInfoPage:
                 
                     # Re-insert with the exact same coordinates and spanning
                     layout.addWidget(new_widget, *location)
-                    new_widget.setMinimumSize(QSize(0, 0))
                     new_widget.setMaximumSize(QSize(16777215, 16777215)) # This is the "Ignored" maximum
 
                 # 3. HANDLE BOX LAYOUT (Vertical / Horizontal)
