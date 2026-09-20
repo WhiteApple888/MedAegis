@@ -43,7 +43,7 @@ class CrClCalculatorPage:
     def setup_ui(self):
         
         # 1) CREATININE CLEARANCE and EGFR CALCULATOR
-        self.crcl_calculator_title = PyTitleWidget(title="Cockcroft-Gault CrCl and eGFR Calculator")
+        self.crcl_calculator_title = PyTitleWidget(title="Cockcroft-Gault CrCl and eGFR (CKD-EPI 2009) Calculator")
 
         self.age_label_1 = self.create_label("Age (Years)", minh=45, minw=225)
         self.weight_label_1 = self.create_label("Weight (kg)", minh=45, minw=225)
@@ -58,9 +58,13 @@ class CrClCalculatorPage:
         self.unit_toggle_1 = PyComboBox(items=["µmol/L", "mg/dL", "mg/mL"])
         self.crcl_male_label = self.create_label("Male CrCl", color=self.themes["app_color"]["text_foreground"])
         self.crcl_female_label = self.create_label("Female CrCl", color=self.themes["app_color"]["text_foreground"])
-        
         self.crcl_male = self.create_label(text="--- mL/min", color="#2CA02C")
         self.crcl_female = self.create_label(text="--- mL/min", color="#2CA02C")
+
+        self.egfr_male_label = self.create_label("Male eGFR", color=self.themes["app_color"]["text_foreground"])
+        self.egfr_female_label = self.create_label("Female eGFR", color=self.themes["app_color"]["text_foreground"])
+        self.egfr_male = self.create_label(text="--- mL/min/1.73m²", color="#2CA02C")
+        self.egfr_female = self.create_label(text="--- mL/min/1.73m²", color="#2CA02C")
 
         # 3) BMI, IBW and AdjBW
         self.ibw_abw_bmi_title = PyTitleWidget(title="Adjusted Body Weight Calculator")
@@ -68,7 +72,7 @@ class CrClCalculatorPage:
         self.weight_label_2 = self.create_label("Weight (kg)", minh=45, minw=225)
         self.height = self.create_line_edit(place_holder_text="input")
         self.weight_2 = self.create_line_edit(place_holder_text="input")
-        self.bmi_label = self.create_label("BMI (kg/m^2)", minh=45, minw=150)
+        self.bmi_label = self.create_label("BMI (kg/m²)", minh=45, minw=150)
 
         self.ibw_male_label = self.create_label("Male Ideal Body Weight", minh=45, minw=150)
         self.ibw_female_label = self.create_label("Female Ideal Body Weight", minh=45, minw=150)
@@ -102,6 +106,11 @@ class CrClCalculatorPage:
         self.replace_widget(self.ui.load_pages.crcl_female_label, self.crcl_female_label)
         self.replace_widget(self.ui.load_pages.crcl_male, self.crcl_male)
         self.replace_widget(self.ui.load_pages.crcl_female, self.crcl_female)
+
+        self.replace_widget(self.ui.load_pages.egfr_male_label, self.egfr_male_label)
+        self.replace_widget(self.ui.load_pages.egfr_female_label, self.egfr_female_label)
+        self.replace_widget(self.ui.load_pages.egfr_male, self.egfr_male)
+        self.replace_widget(self.ui.load_pages.egfr_female, self.egfr_female)
 
         # 2) BMI, IBW, AdjBW
         self.replace_widget(self.ui.load_pages.ibw_abw_bmi_title, self.ibw_abw_bmi_title)
@@ -238,21 +247,41 @@ class CrClCalculatorPage:
         if not age or not weight or not scr:
             self.crcl_male.setText("---")
             self.crcl_female.setText("---")
+        
+        if not age or not scr:
+            self.egfr_male.setText("---")
+            self.egfr_female.setText("---")
             return
         
         # 2. Call external backend function
-        m_result, f_result = cal_clcr_results(age, weight, scr, unit)
+        male_crcl_result, female_crcl_result = cal_clcr_results(age, weight, scr, unit)
+        male_egfr_result, female_egfr_result = cal_ckd_epi_2009_results(age, scr, unit, is_black=False)
+
+        crcl_results = [male_crcl_result, female_crcl_result]
+        egfr_results = [male_egfr_result, female_egfr_result]
 
         # 3. Update UI based on result
-        if m_result is not None:
-            self.crcl_male.setText(f"{m_result} mL/min")
-            self.crcl_female.setText(f"{f_result} mL/min")
+        if all(result is not None for result in crcl_results):
+            self.crcl_male.setText(f"{male_crcl_result} mL/min")
+            self.crcl_female.setText(f"{female_crcl_result} mL/min")
+
             # Using your existing status helper for color feedback
-            self.set_label_status(self.crcl_male, f"{m_result} mL/min", is_valid=True)
-            self.set_label_status(self.crcl_female, f"{f_result} mL/min", is_valid=True)
+            self.set_label_status(self.crcl_male, f"{male_crcl_result} mL/min", is_valid= male_crcl_result > 60)
+            self.set_label_status(self.crcl_female, f"{female_crcl_result} mL/min", is_valid=female_crcl_result > 60)
         else:
             self.crcl_male.setText("---")
             self.crcl_female.setText("---")
+
+        if all(result is not None for result in egfr_results):
+            self.egfr_male.setText(f"{male_egfr_result} ml/min/1.73m²")
+            self.egfr_female.setText(f"{female_egfr_result} ml/min/1.73m²")
+
+            # Using your existing status helper for color feedback
+            self.set_label_status(self.egfr_male, f"{male_egfr_result} mL/min/1.73m²", is_valid=male_egfr_result > 60)
+            self.set_label_status(self.egfr_female, f"{female_egfr_result} mL/min/1.73m²", is_valid=female_egfr_result > 60)
+        else:
+            self.egfr_male.setText("---")
+            self.egfr_female.setText("---")
 
     def run_bmi_ibw_abw_calculation(self):
         print("BMI, IBW, AdjBW calculation triggered")

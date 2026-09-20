@@ -131,7 +131,7 @@
      </widget>
      <widget class="QWidget" name="page_2">
       <property name="styleSheet">
-       <string notr="true">border: 1px solid black;</string>
+       <string notr="true"/>
       </property>
       <layout class="QVBoxLayout" name="page_2_layout">
        <property name="spacing">
@@ -171,8 +171,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1206</width>
-            <height>646</height>
+            <width>1208</width>
+            <height>648</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -533,7 +533,7 @@
                <widget class="QWidget" name="right" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>3</horstretch>
+                  <horstretch>1</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
@@ -896,8 +896,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>274</width>
-            <height>242</height>
+            <width>1206</width>
+            <height>646</height>
            </rect>
           </property>
           <property name="styleSheet">
